@@ -2,14 +2,17 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import Types from './types';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import styles from './styles.scss';
+
 
 
 
 function Todo() {
 
-    const [todo, setTodo] = useState<string>('');
+    const [todo, setTodo,] = useState<string>('');
     const [displayMessage, setDisplayMessage] = useState(false);
     const [todoList, setTodoList] = useLocalStorage<Types.Todo[]>('todoList', [])
+    
 
     console.log(todoList);
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,19 +30,20 @@ function Todo() {
             description: todo,
             id: uuid(),
             status: Types.Status.unfinished,
-            done: false
+            done: false,
+            delete: false
         }])
         setTodo('')
     }
 
     const handleChangeTodoStatus = ({ target }: ChangeEvent<HTMLInputElement>, id: string) => {
         const { checked } = target
-        const { done, unfinished } = Types.Status
-        setTodoList(todoList.map(todo => {
+        const { done, unfinished, } = Types.Status
+        setTodoList(todoList.map( todo => {
             if (todo.id === id) {
                 return {
                     ...todo,
-                    status: checked ? done : unfinished,
+                    status: checked ? done : unfinished, 
                     done: checked
                 }
             }
@@ -61,6 +65,7 @@ function Todo() {
             <input onChange={handleChange} type="text" value={todo} />
             {displayError()}
             <button onClick={handleClick}>Save TODO</button>
+            <button onClick={handleClick}>Delete</button>
             {
                 todoList.map(({ id, description, status, done }) => (
                     <li key={id}>
@@ -71,6 +76,7 @@ function Todo() {
                     </li>
                 ))
             }
+
         </>
     )
 }
