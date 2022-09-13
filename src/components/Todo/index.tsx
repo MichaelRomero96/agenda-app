@@ -1,20 +1,17 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { ChangeEvent } from 'react';
 import { v4 as uuid } from 'uuid';
-import Types from './types';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import styles from './styles.scss';
+import styles from './styles.module.scss';
+import { Todo, TodoStatus } from './types';
 
 
+function TodoUI() {
 
-
-function Todo() {
-
-    const [todo, setTodo,] = useState<string>('');
+    const [todo, setTodo] = useState<string>('');
     const [displayMessage, setDisplayMessage] = useState(false);
-    const [todoList, setTodoList] = useLocalStorage<Types.Todo[]>('todoList', [])
-    
+    const [todoList, setTodoList] = useLocalStorage<Todo[]>('todoList', [])
 
-    console.log(todoList);
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTodo(e.target.value)
     }
@@ -29,21 +26,29 @@ function Todo() {
         setTodoList([...todoList, {
             description: todo,
             id: uuid(),
-            status: Types.Status.unfinished,
+            status: TodoStatus.unfinished,
             done: false,
             delete: false
         }])
         setTodo('')
     }
 
+    const handleDeleteTodoList = () => setTodoList([]);
+
+    const handleDeleteToDo = (id: string) => {
+        setTodoList((prev: Todo[]) => prev.filter((toDo) => {
+            return id !== toDo.id
+        }));
+    };
+
     const handleChangeTodoStatus = ({ target }: ChangeEvent<HTMLInputElement>, id: string) => {
         const { checked } = target
-        const { done, unfinished, } = Types.Status
-        setTodoList(todoList.map( todo => {
+        const { done, unfinished, } = TodoStatus
+        setTodoList(todoList.map((todo: Todo) => {
             if (todo.id === id) {
                 return {
                     ...todo,
-                    status: checked ? done : unfinished, 
+                    status: checked ? done : unfinished,
                     done: checked
                 }
             }
@@ -53,6 +58,7 @@ function Todo() {
     }
 
     useEffect(() => {
+        if (todoList.length === 0) return;
         setTodoList(todoList)
     }, [todoList])
 
@@ -61,18 +67,24 @@ function Todo() {
 
     return (
         <>
-            <h1>TODO List</h1>
+            <h1 className={styles.h1}>TODO List</h1>
             <input onChange={handleChange} type="text" value={todo} />
             {displayError()}
-            <button onClick={handleClick}>Save TODO</button>
-            <button onClick={handleClick}>Delete</button>
+            <button onClick={handleClick}>Add task</button>
+            <button onClick={handleDeleteTodoList}>Delete All</button>
             {
-                todoList.map(({ id, description, status, done }) => (
+                todoList.map(({ id, description, status, done }: Todo) => (
                     <li key={id}>
                         <span>{description}</span>
                         <br />
                         <span>Status: <b>{status}</b></span>
-                        <input onChange={(e) => handleChangeTodoStatus(e, id)} type="checkbox" defaultChecked={done} />
+                        <input
+                            onChange={(e) => handleChangeTodoStatus(e, id)}
+                            type="checkbox"
+                            defaultChecked={done} />
+                        <button onClick={() => handleDeleteToDo(id)} >
+                            Delete task
+                        </button>
                     </li>
                 ))
             }
@@ -81,4 +93,4 @@ function Todo() {
     )
 }
 
-export default Todo
+export default TodoUI

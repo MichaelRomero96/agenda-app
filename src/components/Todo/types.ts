@@ -1,15 +1,11 @@
-namespace Types {
-  export interface Todo {
-    id: string;
-    description: string;
-    status: Status;
-    done: boolean;
-  }
-
-  export enum Status {
-    unfinished = "Unfinished",
-    done = "Done",
-  }
+export interface Todo {
+  id: string;
+  description: string;
+  status: TodoStatus;
+  done: boolean;
 }
 
-export default Types;
+export enum TodoStatus {
+  unfinished = "Unfinished",
+  done = "Done",
+}
