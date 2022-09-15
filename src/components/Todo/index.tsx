@@ -6,6 +6,8 @@ import styles from './styles.module.scss';
 import { Todo, TodoStatus } from './types';
 
 
+
+
 function TodoUI() {
 
     const [todo, setTodo] = useState<string>('');
@@ -82,7 +84,7 @@ function TodoUI() {
                             onChange={(e) => handleChangeTodoStatus(e, id)}
                             type="checkbox"
                             defaultChecked={done} />
-                        <button onClick={() => handleDeleteToDo(id)} >
+                        <button className='color-red' onClick={() => handleDeleteToDo(id)} >
                             Delete task
                         </button>
                     </li>
@@ -91,6 +93,6 @@ function TodoUI() {
 
         </>
     )
-}
+}   
 
 export default TodoUI
