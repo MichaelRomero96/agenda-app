@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { v4 as uuid } from 'uuid';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import styles from './styles.module.scss';
+/*import styles from './styles.module.scss';*/
 import { Todo, TodoStatus } from './types';
+import { Button, Text } from '@mantine/core';
 
 
 
-
-function TodoUI() {
+function Buttons() {
 
     const [todo, setTodo] = useState<string>('');
     const [displayMessage, setDisplayMessage] = useState(false);
@@ -69,11 +69,19 @@ function TodoUI() {
 
     return (
         <>
-            <h1 className={styles.h1}>TODO List</h1>
+            <Text component="span"
+                align="center"
+                variant="gradient"
+                gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+                size="xl"
+                weight={700}
+                style={{ fontFamily: 'Greycliff CF, sans-serif' }}>TODO List</Text>
             <input onChange={handleChange} type="text" value={todo} />
             {displayError()}
-            <button onClick={handleClick}>Add task</button>
-            <button onClick={handleDeleteTodoList}>Delete All</button>
+            <div style={{ display: 'flex' }}>
+            <Button onClick={handleClick} variant="outline" color="indigo" radius="lg" >Add task</Button>
+            <Button onClick={handleDeleteTodoList} variant="outline" color="indigo" radius="lg">Delete All</Button>
+            </div>
             {
                 todoList.map(({ id, description, status, done }: Todo) => (
                     <li key={id}>
@@ -84,9 +92,9 @@ function TodoUI() {
                             onChange={(e) => handleChangeTodoStatus(e, id)}
                             type="checkbox"
                             defaultChecked={done} />
-                        <button className='color-red' onClick={() => handleDeleteToDo(id)} >
+                        <Button  onClick={() => handleDeleteToDo(id)} >
                             Delete task
-                        </button>
+                        </Button>
                     </li>
                 ))
             }
@@ -95,4 +103,4 @@ function TodoUI() {
     )
 }   
 
-export default TodoUI
+export default Buttons
