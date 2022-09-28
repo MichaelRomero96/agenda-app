@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import useLocalStorage from '../../hooks/useLocalStorage';
 /*import styles from './styles.module.scss';*/
 import { Todo, TodoStatus } from './types';
-import { Button, Text } from '@mantine/core';
+import { Button, Text, Grid } from '@mantine/core';
 
 
 
@@ -69,19 +69,29 @@ function Buttons() {
 
     return (
         <>
-            <Text component="span"
+        
+            <Text
                 align="center"
                 variant="gradient"
                 gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
                 size="xl"
-                weight={700}
+                weight={'800'}
+                color="dimmed"
                 style={{ fontFamily: 'Greycliff CF, sans-serif' }}>TODO List</Text>
+            <Grid>
+            <Grid.Col span={2}>
             <input onChange={handleChange} type="text" value={todo} />
             {displayError()}
+            </Grid.Col>
             <div style={{ display: 'flex' }}>
+            <Grid.Col span={6}>  
             <Button onClick={handleClick} variant="outline" color="indigo" radius="lg" >Add task</Button>
+            </Grid.Col>
+            <Grid.Col span={3}> 
             <Button onClick={handleDeleteTodoList} variant="outline" color="indigo" radius="lg">Delete All</Button>
+            </Grid.Col>
             </div>
+            </Grid>
             {
                 todoList.map(({ id, description, status, done }: Todo) => (
                     <li key={id}>
