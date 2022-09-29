@@ -4,15 +4,17 @@ import { v4 as uuid } from 'uuid';
 import useLocalStorage from '../../hooks/useLocalStorage';
 /*import styles from './styles.module.scss';*/
 import { Todo, TodoStatus } from './types';
-import { Button, Text, Grid } from '@mantine/core';
+import { Button, Text, Grid, TextInput } from '@mantine/core';
+import useStyles from './styles';
 
 
 
-function Buttons() {
+function ToDo() {
 
     const [todo, setTodo] = useState<string>('');
     const [displayMessage, setDisplayMessage] = useState(false);
-    const [todoList, setTodoList] = useLocalStorage<Todo[]>('todoList', [])
+    const [todoList, setTodoList] = useLocalStorage<Todo[]>('todoList', []);
+    const { classes } = useStyles();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTodo(e.target.value)
@@ -69,7 +71,6 @@ function Buttons() {
 
     return (
         <>
-        
             <Text
                 align="center"
                 variant="gradient"
@@ -77,20 +78,40 @@ function Buttons() {
                 size="xl"
                 weight={'800'}
                 color="dimmed"
-                style={{ fontFamily: 'Greycliff CF, sans-serif' }}>TODO List</Text>
-            <Grid>
-            <Grid.Col span={2}>
-            <input onChange={handleChange} type="text" value={todo} />
-            {displayError()}
-            </Grid.Col>
-            <div style={{ display: 'flex' }}>
-            <Grid.Col span={6}>  
-            <Button onClick={handleClick} variant="outline" color="indigo" radius="lg" >Add task</Button>
-            </Grid.Col>
-            <Grid.Col span={3}> 
-            <Button onClick={handleDeleteTodoList} variant="outline" color="indigo" radius="lg">Delete All</Button>
-            </Grid.Col>
-            </div>
+                style={{ fontFamily: 'Greycliff CF, sans-serif' }}>
+                    TODO List
+            </Text>
+
+            <Grid justify='center' className={classes.addTaskContainer}>
+                <Grid.Col span={6}>
+                    <TextInput
+                     onChange={handleChange}
+                     type="text"
+                     value={todo} />
+                    {displayError()}
+                </Grid.Col>
+
+                <div style={{ display: 'flex' }}>
+
+                <Grid.Col span={6}>
+                    <Button
+                        onClick={handleClick}
+                        variant="outline" color="indigo"
+                        radius="lg">
+                        Add task
+                    </Button>
+                </Grid.Col>
+
+                <Grid.Col span={3}>
+                    <Button
+                        onClick={handleDeleteTodoList}
+                        variant="outline"
+                        color="indigo"
+                        radius="lg">
+                        Delete All
+                    </Button>
+                </Grid.Col>
+                </div>
             </Grid>
             {
                 todoList.map(({ id, description, status, done }: Todo) => (
@@ -111,6 +132,6 @@ function Buttons() {
 
         </>
     )
-}   
+}
 
-export default Buttons
+export default ToDo
