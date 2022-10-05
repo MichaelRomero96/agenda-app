@@ -1,12 +1,12 @@
-import { createStyles } from "@mantine/core";
+import { createStyles } from '@mantine/core'
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles(() => ({
   root: {
-    backgroundColor: "red",
+    backgroundColor: 'red',
   },
   addTaskContainer: {
-    margin: '0 auto'
-  }
-}));
+    margin: '0 auto',
+  },
+}))
 
-export default useStyles;
+export default useStyles
