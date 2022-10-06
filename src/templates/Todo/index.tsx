@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { v4 as uuid } from 'uuid'
-import { Button, Text, Grid, TextInput } from '@mantine/core'
+import { Button, Grid, TextInput, Title, Menu, Container } from '@mantine/core'
 import useLocalStorage from '../../hooks/useLocalStorage'
 import { Todo, TodoStatus } from './types'
 import useStyles from './styles'
+import TaskCard from './TaskCard'
+import theme from '../../theme'
 
 function ToDo() {
   const [todo, setTodo] = useState<string>('')
@@ -71,65 +73,50 @@ function ToDo() {
   const displayError = () => (displayMessage ? <h2>Must type a todo</h2> : null)
 
   return (
-    <>
-      <Text
-        align="center"
-        variant="gradient"
-        gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
-        size="xl"
-        weight="800"
-        color="dimmed"
-        style={{ fontFamily: 'Greycliff CF, sans-serif' }}
-      >
+    <Container>
+      <Title order={2} align="center" color={theme.primaryColor} weight="800">
         TODO List
-      </Text>
+      </Title>
 
-      <Grid justify="center" className={classes.addTaskContainer}>
-        <Grid.Col span={6}>
-          <TextInput onChange={handleChange} type="text" value={todo} />
+      <Grid justify="center" align="center" gutter="xs">
+        <Grid.Col span={8}>
+          <TextInput
+            placeholder="Type a task"
+            onChange={handleChange}
+            type="text"
+            value={todo}
+          />
           {displayError()}
         </Grid.Col>
-
-        <div style={{ display: 'flex' }}>
-          <Grid.Col span={6}>
-            <Button
-              onClick={handleClick}
-              variant="outline"
-              color="indigo"
-              radius="lg"
-            >
+        <Container>
+          <Grid.Col>
+            <Button onClick={handleClick} variant="filled" radius="md">
               Add task
             </Button>
           </Grid.Col>
 
-          <Grid.Col span={3}>
-            <Button
-              onClick={handleDeleteTodoList}
-              variant="outline"
-              color="indigo"
-              radius="lg"
-            >
+          <Grid.Col>
+            <Button onClick={handleDeleteTodoList} variant="filled" radius="md">
               Delete All
             </Button>
           </Grid.Col>
-        </div>
+        </Container>
       </Grid>
-      {todoList.map(({ id, description, status, done }: Todo) => (
-        <li key={id}>
-          <span>{description}</span>
-          <br />
-          <span>
-            Status: <b>{status}</b>
-          </span>
-          <input
-            onChange={(e) => handleChangeTodoStatus(e, id)}
-            type="checkbox"
-            defaultChecked={done}
-          />
-          <Button onClick={() => handleDeleteToDo(id)}>Delete task</Button>
-        </li>
-      ))}
-    </>
+
+      <Grid justify="center" mt={10} gutter="xs">
+        {todoList.map(({ id, description }: Todo) => (
+          <Grid.Col key={id} span={8}>
+            <Menu>
+              <TaskCard
+                descriptionTask={description}
+                id={id}
+                handleDeleteTodo={handleDeleteToDo}
+              />
+            </Menu>
+          </Grid.Col>
+        ))}
+      </Grid>
+    </Container>
   )
 }
 
