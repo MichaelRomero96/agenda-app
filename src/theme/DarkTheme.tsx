@@ -1,9 +1,9 @@
-import { ActionIcon, useMantineColorScheme } from '@mantine/core';
-import { IconSun, IconMoonStars } from '@tabler/icons';
+import { ActionIcon, useMantineColorScheme } from '@mantine/core'
+import { IconSun, IconMoonStars } from '@tabler/icons'
 
 function DarkTheme() {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const dark = colorScheme === 'dark';
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme()
+  const dark = colorScheme === 'dark'
 
   return (
     <ActionIcon
@@ -14,8 +14,7 @@ function DarkTheme() {
     >
       {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
     </ActionIcon>
-  );
+  )
 }
 
-
-export default DarkTheme;
+export default DarkTheme

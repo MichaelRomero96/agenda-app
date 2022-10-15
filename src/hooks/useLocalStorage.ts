@@ -16,7 +16,7 @@ export default function useLocalStorage<T>(key: string, initialValue: T) {
       window.localStorage.setItem(key, JSON.stringify(data))
       setStoredData(data)
     } catch (error) {
-      throw new Error(error)
+      throw new Error('There was an error with local storage')
     }
   }
   return [storedData, setData]

@@ -7,7 +7,7 @@ import {
   IconBrandInstagram,
 } from '@tabler/icons'
 import useStyles from './styles'
-import DarkTheme from '../../themes/DarkTheme'
+import DarkTheme from '../../theme/DarkTheme'
 
 interface AppBarProps {
   links: { link: string; label: string }[]

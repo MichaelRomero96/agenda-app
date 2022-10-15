@@ -2,13 +2,14 @@ import {
   ColorSchemeProvider,
   MantineProvider,
   ColorScheme,
-} from '@mantine/core';
-import { useState } from 'react';
-import AppBar from './components/AppBar';
-import Todo from './components/Todo';
+} from '@mantine/core'
+import { useState } from 'react'
+import AppBar from './Templates/AppBar'
+import Todo from './Templates/Todo'
+import theme from './theme'
 
 function App() {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('light')
 
   const links = [
     {
@@ -19,10 +20,10 @@ function App() {
       link: '',
       label: 'Contact',
     },
-  ];
+  ]
 
   const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
 
   return (
     <ColorSchemeProvider
@@ -30,7 +31,7 @@ function App() {
       toggleColorScheme={toggleColorScheme}
     >
       <MantineProvider
-        theme={{ colorScheme }}
+        theme={{ colorScheme, primaryColor: theme.primaryColor }}
         withGlobalStyles
         withNormalizeCSS
       >
@@ -38,7 +39,7 @@ function App() {
         <Todo />
       </MantineProvider>
     </ColorSchemeProvider>
-  );
+  )
 }
 
-export default App;
+export default App
