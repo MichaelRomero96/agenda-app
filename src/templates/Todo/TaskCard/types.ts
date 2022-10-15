@@ -1,4 +1,4 @@
-import { ColorProps } from '../../../atoms/CardGradient/types'
+import { ColorProps } from '../../../Atoms/CardGradient/types'
 
 export interface ToDoCardTaskProps {
   descriptionTask: string

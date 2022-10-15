@@ -4,8 +4,8 @@ import {
   ColorScheme,
 } from '@mantine/core'
 import { useState } from 'react'
-import AppBar from './templates/AppBar'
-import Todo from './templates/Todo'
+import AppBar from './Templates/AppBar'
+import Todo from './Templates/Todo'
 import theme from './theme'
 
 function App() {

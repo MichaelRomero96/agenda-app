@@ -1,5 +1,5 @@
 import { Menu, Text } from '@mantine/core'
-import CardGradient from '../../../atoms/CardGradient'
+import CardGradient from '../../../Atoms/CardGradient'
 import { ToDoCardTaskProps } from './types'
 
 export default function TaskCard({
