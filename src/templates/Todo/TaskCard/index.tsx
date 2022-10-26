@@ -1,6 +1,7 @@
 import { Menu, Text } from '@mantine/core'
 import CardGradient from '../../../Atoms/CardGradient'
-import { ToDoCardTaskProps } from './types'
+import MoreIcon from '../../../Atoms/MoreIcon'
+import { ToDoCardTaskProps } from '../types'
 
 export default function TaskCard({
   descriptionTask,
@@ -16,7 +17,9 @@ export default function TaskCard({
       <CardGradient colors={cardGradientColors}>
         <Text onClick={() => handleOpenMenu()}>{descriptionTask}</Text>
         <Menu.Target>
-          <span>menu_icon</span>
+          <span>
+            <MoreIcon />
+          </span>
         </Menu.Target>
       </CardGradient>
 

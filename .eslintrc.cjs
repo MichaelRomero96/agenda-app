@@ -23,6 +23,7 @@ module.exports = {
 
   rules: {
     'react/react-in-jsx-scope': 0,
+    'react/jsx-props-no-spreading': 'off',
     'prettier/prettier': [
       'error',
       {
