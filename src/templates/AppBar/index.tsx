@@ -1,20 +1,19 @@
 import { useState } from 'react'
-import { Header, Group, ActionIcon, Container, Burger } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
+import { Header, Group, ActionIcon, Container } from '@mantine/core'
 import {
   IconBrandTwitter,
   IconBrandYoutube,
   IconBrandInstagram,
 } from '@tabler/icons'
-import useStyles from './styles'
+
 import DarkTheme from '../../theme/DarkTheme'
+import useStyles from './styles'
 
 interface AppBarProps {
   links: { link: string; label: string }[]
 }
 
 export default function AppBar({ links }: AppBarProps) {
-  const [opened, { toggle }] = useDisclosure(false)
   const [active, setActive] = useState(links[0].link)
   const { classes, cx } = useStyles()
 
@@ -37,12 +36,6 @@ export default function AppBar({ links }: AppBarProps) {
   return (
     <Header height={56} mb={120} className={classes.header}>
       <Container className={classes.inner}>
-        <Burger
-          opened={opened}
-          onClick={toggle}
-          size="sm"
-          className={classes.burger}
-        />
         <Group className={classes.links} spacing={5}>
           {items}
         </Group>

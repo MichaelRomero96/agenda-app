@@ -5,7 +5,8 @@ import {
 } from '@mantine/core'
 import { useState } from 'react'
 import AppBar from './Templates/AppBar'
-import Todo from './Templates/Todo'
+import ToDo from './Templates/Todo'
+
 import theme from './theme'
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
         withNormalizeCSS
       >
         <AppBar links={links} />
-        <Todo />
+        <ToDo />
       </MantineProvider>
     </ColorSchemeProvider>
   )
